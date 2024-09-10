@@ -29,31 +29,32 @@
 			<a href="/">LOGO</a>
 			<div class="flex-grow"></div>
 			<ul class="flex space-x-6"> <!-- space-x-6: 각 항목 간의 간격을 추가 -->
-	<li><a class="hover:underline" href="/">HOME</a></li>
-	<li>
-		<div class="dropdown dropdown-hover">
-			<div tabindex="0" role="button">LIST</div>
-			<ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-				<li><a href="../article/list?boardId=1&page=1">NOTICE</a></li>
-				<li><a href="../article/list?boardId=2&page=1">FREE</a></li>
-				<li><a href="../article/list?boardId=3&page=1">QnA</a></li>
+			    <li><a class="hover:underline" href="/">HOME</a></li>
+			    
+			    <!-- 로그인하지 않았을 때 LOGIN과 JOIN만 표시 -->
+			    <c:if test="${!rq.isLogined() }">
+				    <li><a class="hover:underline" href="../member/login">로그인</a></li>
+				    <li><a class="hover:underline" href="../member/join">회원가입</a></li>
+			    </c:if>
+
+			    <!-- 로그인했을 때 LIST, TIMER, WRITE, LOGOUT 표시 -->
+			    <c:if test="${rq.isLogined() }">
+				    <li>
+					    <div class="dropdown dropdown-hover">
+						    <div tabindex="0" role="button">LIST</div>
+						    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+							    <li><a href="../article/list?boardId=1&page=1">NOTICE</a></li>
+							    <li><a href="../article/list?boardId=2&page=1">FREE</a></li>
+							    <li><a href="../article/list?boardId=3&page=1">QnA</a></li>
+						    </ul>
+					    </div>
+				    </li>
+				    <li><a class="hover:underline" href="../study/main">TIMER</a></li>
+				    <li><a class="hover:underline" href="../article/write">WRITE</a></li>
+				    <li><a onclick="if(confirm('로그아웃 하시겠습니까?') == false) return false;" class="hover:underline" href="../member/doLogout">LOGOUT</a></li>
+			    </c:if>
 			</ul>
 		</div>
-	</li>
-	<li><a class="hover:underline" href="../usr/study/main">TIMER</a></li>
-	<c:if test="${!rq.isLogined() }">
-		<li><a class="hover:underline" href="../member/login">LOGIN</a></li>
-		<li><a class="hover:underline" href="../member/join">JOIN</a></li>
-	</c:if>
-	<c:if test="${rq.isLogined() }">
-		<li><a class="hover:underline" href="../article/write">WRITE</a></li>
-		<li><a onclick="if(confirm('로그아웃 하시겠습니까?') == false) return false;" class="hover:underline"
-			href="../member/doLogout">LOGOUT</a></li>
-	</c:if>
-</ul>
-		</div>
 	</header>
-	
-	
-
-	<h1>${pageTitle }</h1>
+</body>
+</html>
